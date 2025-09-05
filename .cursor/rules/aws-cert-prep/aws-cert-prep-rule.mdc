@@ -1,0 +1,282 @@
+---
+description: Comprehensive rule for AWS certification preparation including Q&A generation and ASCII diagrams for Solutions Architect role
+globs: ["**/*.md", "**/*.txt"]
+alwaysApply: false
+---
+
+# AWS Certification Preparation Rule
+
+## Input Requirements
+
+This rule expects three inputs:
+1. **Section Title/Name**: The specific AWS topic (e.g., "Diving into Identity and Access Management")
+2. **Book Content**: The full markdown content of the relevant book section
+3. **Directory Path**: Where to place the generated files (e.g., "topics/ch1/Diving into Identity and Access Management/")
+
+## Core Workflow
+
+### Phase 1: AWS Knowledge Gathering
+1. **Use AWS Knowledge MCP Server** to fetch:
+   - Official AWS documentation related to the topic
+   - Current AWS best practices
+   - Service-specific documentation and limitations
+   - Recent updates and new features
+
+2. **Search Strategy**:
+   - Use the section title as primary search term
+   - Search for related service documentation
+   - Fetch best practices and architectural patterns
+   - Look for troubleshooting guides and common issues
+
+### Phase 2: Q&A Generation
+
+#### Format Requirements
+1. Generate **20-25 multiple-choice questions** (more than generic rule due to AWS complexity)
+2. Each question must have exactly **4 answer options**, numbered 1-4
+3. Questions should test **Solutions Architect level understanding**
+4. **Answer Distribution**: Ensure correct answers are evenly distributed across all four options (1, 2, 3, 4)
+
+#### AWS-Specific Question Categories (Required)
+Include questions covering:
+- **Service configurations and limitations** (6-7 questions)
+- **Best practices and anti-patterns** (6-7 questions)
+- **Cost optimization scenarios** (5-6 questions)
+- **Security considerations** (5-6 questions)
+- **Integration scenarios** (6-7 questions)
+- **Real-world troubleshooting** (Solutions Architect focused)
+
+#### Content Integration Strategy
+- **Primary Source (60%)**: AWS official documentation from MCP server
+- **Secondary Source (30%)**: Book content for foundational concepts
+- **Exam Focus (10%)**: Real exam scenarios for Solutions Architect Professional
+
+#### Question Complexity Levels
+- **Foundational (10%)**: Basic service understanding
+- **Associate (45%)**: Configuration and integration scenarios
+- **Professional (45%)**: Complex architectural decisions and trade-offs
+
+### Phase 3: ASCII Diagram Creation
+
+#### File Organization
+- **Main Q&A File**: `{directory}/question.md`
+- **Diagram File**: `{directory}/diagrams.md`
+- **Answers File**: `{directory}/answers.md`
+
+#### Diagram Focus Areas
+Create ASCII diagrams that cover the **most difficult and complex aspects** of the subject, specifically targeting **Solutions Architect role requirements**:
+
+1. **Service Architecture Diagrams**
+   - Multi-service integration patterns
+   - Cross-region architectures
+   - Hybrid cloud connections
+
+2. **Security Models**
+   - IAM policy evaluation flow
+   - Cross-account access patterns
+   - Network security layers
+
+3. **Data Flow Diagrams**
+   - Complex data pipelines
+   - Real-time vs batch processing
+   - Data lake architectures
+
+4. **Network Topologies**
+   - Multi-VPC architectures
+   - Transit Gateway patterns
+   - Direct Connect scenarios
+
+5. **Cost Optimization Models**
+   - Reserved Instance strategies
+   - Spot Instance patterns
+   - Storage tier optimization
+
+#### Diagram Types for AWS
+
+##### 1. Service Integration Flow
+```
+User Request
+    |
+    v
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Route 53  │───▶│     ALB     │───▶│    EC2      │
+│     DNS     │    │Load Balancer│    │ Auto Scaling│
+└─────────────┘    └─────────────┘    └─────────────┘
+                           │                   │
+                           v                   v
+                   ┌─────────────┐    ┌─────────────┐
+                   │     WAF     │    │     RDS     │
+                   │  Security   │    │  Database   │
+                   └─────────────┘    └─────────────┘
+```
+
+##### 2. IAM Policy Evaluation
+```
+Request → Identity-Based → Resource-Based → Permission Boundary → SCP
+   |           Policy         Policy          (Optional)      (Org)
+   |              |              |               |            |
+   v              v              v               v            v
+┌─────┐       ┌─────┐        ┌─────┐         ┌─────┐      ┌─────┐
+│Allow│  AND  │Allow│   AND  │Allow│    AND  │Allow│ AND  │Allow│
+│Deny │       │Deny │        │Deny │         │Deny │      │Deny │
+└─────┘       └─────┘        └─────┘         └─────┘      └─────┘
+   |              |              |               |            |
+   └──────────────┼──────────────┼───────────────┼────────────┘
+                  v
+            Final Decision: ALLOW/DENY
+```
+
+##### 3. Multi-Region Architecture
+```
+┌─────────────── Primary Region (us-east-1) ───────────────┐
+│  ┌─────────┐    ┌─────────┐    ┌─────────────┐          │
+│  │   ALB   │───▶│   EC2   │───▶│     RDS     │          │
+│  │         │    │Instance │    │   Primary   │          │
+│  └─────────┘    └─────────┘    └─────────────┘          │
+│                                        │                │
+└────────────────────────────────────────┼────────────────┘
+                                         │ Cross-Region
+                                         │ Replication
+┌─────────────── DR Region (us-west-2) ──┼────────────────┐
+│                                        v                │
+│  ┌─────────┐    ┌─────────┐    ┌─────────────┐          │
+│  │   ALB   │───▶│   EC2   │───▶│     RDS     │          │
+│  │(Standby)│    │(Standby)│    │   Standby   │          │
+│  └─────────┘    └─────────┘    └─────────────┘          │
+└─────────────────────────────────────────────────────────┘
+```
+
+##### 4. Cost Optimization Decision Tree
+```
+Workload Analysis
+        │
+        v
+┌───────────────┐
+│ Predictable?  │
+└───────┬───────┘
+        │
+    ┌───v───┐
+    │  Yes  │                │   No   │
+    └───┬───┘                └───┬────┘
+        │                        │
+        v                        v
+┌───────────────┐        ┌───────────────┐
+│Reserved Instance│        │  Spot Instance │
+│    1-3 Years    │        │   + On-Demand  │
+│   Up to 75%     │        │   Up to 90%    │
+│    Savings      │        │    Savings     │
+└───────────────┘        └───────────────┘
+```
+
+#### Diagram Requirements
+1. **Solutions Architect Focus**: Emphasize architectural decisions and trade-offs
+2. **Complexity Handling**: Show how services interact in complex scenarios
+3. **Real-world Context**: Include practical constraints and considerations
+4. **Decision Points**: Highlight where architects must make choices
+5. **Scalability Aspects**: Show how architectures scale and evolve
+
+### Phase 4: File Generation
+
+#### File Structure
+```
+{directory}/
+├── questions.md          # Questions with 4 options each
+├── answers.md     # Answers with explanations
+└── diagrams.md    # ASCII diagrams with explanations
+```
+
+#### Content Integration Guidelines
+1. **Balance Sources**: 
+   - AWS MCP Server documentation (primary)
+   - Book content (foundational context)
+   - Real exam scenarios (practical application)
+
+2. **Solutions Architect Focus**:
+   - Emphasize architectural decision-making
+   - Include cost and performance trade-offs
+   - Cover enterprise-scale scenarios
+   - Address compliance and security requirements
+
+3. **Question Quality**:
+   - Avoid memorization-based questions
+   - Focus on understanding and application
+   - Include scenario-based questions
+   - Test decision-making skills
+
+#### Answer Format Requirements
+1. Provide the correct answer number (1-4)
+2. Include **detailed explanation** (2-3 sentences minimum)
+3. Reference **AWS documentation** when applicable
+4. Explain **why other options are incorrect**
+5. Include **real-world context** for Solutions Architect role
+
+## Example Output Structure
+
+### Q&A File Format
+```markdown
+# AWS Topic: [Topic Name]
+
+## Questions
+
+**Q1: [Service Configuration Question]**
+1. [Specific technical option]
+2. [Specific technical option]
+3. [Specific technical option]
+4. [Specific technical option]
+
+**Q2: [Best Practices Question]**
+...
+
+**Q8: [Cost Optimization Scenario]**
+...
+```
+
+### Answers File Format
+```markdown
+# AWS Topic: [Topic Name] - Answers
+
+**Q1: [Question Text]**
+**Answer: [Number]**
+**Explanation:** [Detailed technical explanation with AWS documentation reference and why other options are incorrect]
+
+**Q2: [Question Text]**
+**Answer: [Number]**
+**Explanation:** [Detailed explanation focused on Solutions Architect decision-making]
+...
+```
+
+### Diagrams File Format
+```markdown
+# AWS Topic: [Topic Name] - Architecture Diagrams
+
+## Overview
+[Brief description of the diagrams and their focus on Solutions Architect challenges]
+
+## Diagram 1: [Complex Architecture Pattern]
+[ASCII diagram]
+
+### Explanation
+[Detailed explanation of the architectural decisions, trade-offs, and Solutions Architect considerations]
+
+## Diagram 2: [Security/IAM Flow]
+[ASCII diagram]
+
+### Key Decision Points
+- [Architectural choice 1 and rationale]
+- [Architectural choice 2 and rationale]
+- [Cost/performance trade-off]
+...
+```
+
+## Success Criteria
+
+A successful AWS certification preparation set should:
+1. ✅ Test Solutions Architect level understanding
+2. ✅ Include current AWS best practices from official documentation
+3. ✅ Cover the most challenging aspects of the topic
+4. ✅ Provide visual aids for complex architectural concepts
+5. ✅ Balance theoretical knowledge with practical application
+6. ✅ Focus on real exam scenarios and decision-making
+7. ✅ Include cost optimization and security considerations
+8. ✅ Reference official AWS documentation for accuracy
+
+This rule ensures comprehensive preparation for AWS Solutions Architect Professional certification by combining rigorous Q&A testing with visual architectural understanding.

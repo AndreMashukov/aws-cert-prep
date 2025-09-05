@@ -1,0 +1,329 @@
+---
+description: Comprehensive rule for gRPC JavaScript professional development including Q&A generation with code examples and architectural diagrams using @grpc/grpc-js and @grpc/proto-loader
+globs: ["**/*grpc*.md", "**/*rpc*.md", "**/grpc-js/**/*.md"]
+alwaysApply: false
+---
+
+# gRPC JavaScript Professional Learning Rule
+
+## Input Requirements
+
+This rule expects four inputs:
+1. **Chapter Name**: The specific gRPC chapter (e.g., "Networking Primer", "Types of gRPC Endpoints")
+2. **Section Name(s)**: The specific section(s) within the chapter (e.g., "Understanding HTTP/2", "Unary API")
+3. **Book Content**: The full markdown content of the relevant book section
+4. **Directory Path**: Where to place the generated files (e.g., "grpc-js/ch1/networking-primer/")
+
+## Core Workflow
+
+### Phase 1: Knowledge Analysis and Context Building
+
+1. **Sequential Dependency Assessment**:
+   - Identify prerequisite concepts from previous chapters/sections
+   - Map dependencies between current topic and foundational concepts
+   - Reference related sections that build upon current material
+
+2. **Comprehensive Coverage Strategy**:
+   - **Fundamental concepts (25%)**: Core networking, protobuf, RPC principles
+   - **Implementation patterns (35%)**: Code examples using @grpc/grpc-js and @grpc/proto-loader, API design, streaming types
+   - **Production features (25%)**: Security, testing, deployment, optimization
+   - **Advanced scenarios (15%)**: Complex architectures, performance tuning
+
+### Phase 2: Q&A Generation with Code Integration
+
+#### Format Requirements
+1. Generate **10-15 questions** combining conceptual understanding with practical implementation
+2. Each question must have exactly **4 answer options**, numbered 1-4
+3. Questions should test **professional gRPC JavaScript development skills** using @grpc/grpc-js and @grpc/proto-loader
+4. **Answer Distribution**: Ensure correct answers are evenly distributed across all four options (1, 2, 3, 4)
+
+#### gRPC-Specific Question Categories (Required)
+Include questions covering:
+- **Protocol fundamentals** (5-6 questions): HTTP/2, protobuf serialization, RPC lifecycle
+- **API implementation** (6-7 questions): Unary, streaming patterns, error handling
+- **Code examples** (5-6 questions): JavaScript/Node.js implementation using @grpc/grpc-js and @grpc/proto-loader, client/server patterns
+- **Production features** (4-5 questions): Security, middleware, testing
+- **Architecture patterns** (4-5 questions): Design decisions, performance trade-offs
+
+#### Concept + Code Question Strategy
+- **Theory + Implementation (40%)**: Combine conceptual questions with JavaScript code examples
+- **Code Analysis (30%)**: Present JavaScript code snippets using @grpc/grpc-js and ask about behavior/improvements
+- **Design Decisions (20%)**: Architectural choices and trade-offs
+- **Troubleshooting (10%)**: Debug scenarios and problem-solving
+
+#### Question Complexity Distribution
+- **Foundational (20%)**: Basic gRPC concepts, protobuf syntax, simple implementations
+- **Intermediate (50%)**: Streaming APIs, middleware, testing, client-server patterns
+- **Advanced (30%)**: Production deployment, performance optimization, complex architectures
+
+### Phase 3: Architectural Diagram Creation
+
+#### File Organization
+- **Main Q&A File**: `{directory}/questions.md`
+- **Diagram File**: `{directory}/diagrams.md`
+- **Answers File**: `{directory}/answers.md`
+- **Code Examples**: `{directory}/code-examples.md`
+
+#### Architecture Pattern Focus Areas
+Create ASCII diagrams emphasizing **client-server communication, streaming types, and middleware patterns**:
+
+1. **gRPC Communication Patterns**
+   - Unary request-response flow
+   - Server streaming patterns
+   - Client streaming patterns
+   - Bidirectional streaming
+
+2. **Protocol Layer Diagrams**
+   - HTTP/2 frame structure
+   - Protobuf message serialization
+   - RPC lifecycle stages
+
+3. **Middleware and Interceptor Chains**
+   - Request/response interceptor flow
+   - Authentication and authorization patterns
+   - Logging and monitoring integration
+
+4. **Service Architecture Patterns**
+   - Microservice communication
+   - Load balancing strategies
+   - Service discovery patterns
+
+#### Diagram Types for gRPC
+
+##### 1. Unary RPC Flow
+```
+Client                          Server
+  |                               |
+  |  1. Send Request             |
+  |----------------------------->|
+  |                              |
+  |                              | 2. Process Request
+  |                              |    & Generate Response
+  |                              |
+  |  3. Send Response            |
+  |<-----------------------------|
+  |                              |
+```
+
+##### 2. Server Streaming Pattern
+```
+Client                          Server
+  |                               |
+  |  1. Send Request             |
+  |----------------------------->|
+  |                              |
+  |  2. Stream Response 1        |
+  |<-----------------------------|
+  |  3. Stream Response 2        |
+  |<-----------------------------|
+  |  4. Stream Response N        |
+  |<-----------------------------|
+  |  5. End Stream               |
+  |<-----------------------------|
+```
+
+##### 3. Middleware/Interceptor Chain
+```
+Client Request
+      |
+      v
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Auth        │───▶│ Logging     │───▶│ Rate Limit  │
+│ Interceptor │    │ Interceptor │    │ Interceptor │
+└─────────────┘    └─────────────┘    └─────────────┘
+      |                   |                   |
+      v                   v                   v
+┌─────────────────────────────────────────────────────┐
+│              gRPC Service Handler                   │
+└─────────────────────────────────────────────────────┘
+      |                   |                   |
+      v                   v                   v
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Logging     │◀───│ Metrics     │◀───│ Error       │
+│ Interceptor │    │ Interceptor │    │ Interceptor │
+└─────────────┘    └─────────────┘    └─────────────┘
+      |
+      v
+Server Response
+```
+
+##### 4. HTTP/2 Frame Structure
+```
+HTTP/2 Connection
+        |
+        v
+┌───────────────────────────────────────┐
+│              HTTP/2 Stream            │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐  │
+│  │ HEADERS │ │  DATA   │ │ HEADERS │  │
+│  │  Frame  │ │  Frame  │ │  Frame  │  │
+│  │(Request)│ │(Payload)│ │(Trailer)│  │
+│  └─────────┘ └─────────┘ └─────────┘  │
+└───────────────────────────────────────┘
+        |
+        v
+gRPC Message Processing
+```
+
+#### Diagram Requirements
+1. **Sequential Learning Support**: Show how concepts build upon each other
+2. **Implementation Focus**: Connect diagrams to actual Go code patterns
+3. **Real-world Context**: Include practical deployment considerations
+4. **Progressive Complexity**: Start simple, add layers of complexity
+
+### Phase 4: File Generation with Code Integration
+
+#### File Structure
+```
+{directory}/
+├── questions.md          # Questions with JavaScript code examples
+├── answers.md           # Answers with detailed explanations
+├── diagrams.md         # Architectural diagrams
+└── code-examples.md    # Complete JavaScript implementations
+```
+
+#### Content Integration Guidelines
+1. **Sequential Dependency**:
+   - Reference previous chapters/sections when building on concepts
+   - Clearly indicate prerequisite knowledge
+   - Show progression from simple to complex implementations
+
+2. **Comprehensive Coverage Balance**:
+   - **Core concepts (40%)**: Essential gRPC knowledge for professionals
+   - **Practical implementation (35%)**: Working JavaScript code and patterns using @grpc/grpc-js and @grpc/proto-loader
+   - **Production readiness (25%)**: Testing, deployment, optimization
+
+3. **Concept + Code Integration**:
+   - Every theoretical concept paired with JavaScript code example using @grpc/grpc-js and @grpc/proto-loader
+   - Real implementation scenarios using modern JavaScript/Node.js patterns
+   - Working examples that can be tested and modified
+
+#### Answer Format Requirements
+1. Provide the correct answer number (1-4)
+2. Include **detailed explanation** linking concept to implementation
+3. Reference **specific book sections** and JavaScript code examples
+4. Explain **why other options are incorrect** with technical reasoning
+5. Include **JavaScript code snippets** demonstrating the concept using @grpc/grpc-js and @grpc/proto-loader
+6. Show **sequential dependencies** and how the topic builds on previous learning
+
+## Example Output Structure
+
+### Q&A File Format
+```markdown
+# gRPC Topic: [Chapter] - [Section]
+
+## Prerequisites
+- [List of previous chapters/sections needed]
+- [Key concepts that should be understood first]
+
+## Questions
+
+**Q1: [Protocol/Implementation Question with Code Context]**
+```javascript
+// Code snippet relevant to question using @grpc/grpc-js
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+
+// Implementation details
+```
+
+1. [Specific technical option with code reference]
+2. [Specific technical option with code reference]
+3. [Specific technical option with code reference]
+4. [Specific technical option with code reference]
+
+**Q2: [Architecture Pattern Question]**
+...
+```
+
+### Answers File Format
+```markdown
+# gRPC Topic: [Chapter] - [Section] - Answers
+
+**Q1: [Question Text]**
+**Answer: [Number]**
+**Explanation:** [Detailed explanation connecting theory to JavaScript implementation, referencing book section and showing code example]
+
+**Code Example:**
+```javascript
+// Working implementation demonstrating the concept
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+```
+
+**Why other options are incorrect:**
+- Option X: [Technical reason with code context]
+- Option Y: [Technical reason with code context]
+
+**Sequential Learning Connection:** [How this builds on previous concepts]
+```
+
+### Diagrams File Format
+```markdown
+# gRPC Topic: [Chapter] - [Section] - Architecture Patterns
+
+## Overview
+[Brief description focusing on client-server communication and streaming patterns]
+
+## Diagram 1: [Communication Pattern]
+[ASCII diagram]
+
+### Implementation Details
+```javascript
+// JavaScript code that implements the pattern shown in diagram
+// Using @grpc/grpc-js and @grpc/proto-loader
+```
+
+### Sequential Learning Notes
+[How this pattern builds on previous concepts and prepares for advanced topics]
+
+## Diagram 2: [Middleware/Architecture Pattern]
+[ASCII diagram]
+
+### Key Decision Points
+- [Implementation choice 1 and JavaScript code rationale]
+- [Implementation choice 2 and JavaScript code rationale]
+- [Performance/design trade-off with code implications]
+```
+
+### Code Examples File Format
+```markdown
+# gRPC Topic: [Chapter] - [Section] - Code Examples
+
+## Complete Implementation Examples
+
+### Example 1: [Concept Name]
+```javascript
+// Complete, working JavaScript code example using @grpc/grpc-js and @grpc/proto-loader
+// Includes imports, proto loading, and implementations
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+```
+
+**Explanation:** [How this code demonstrates the key concepts]
+
+**Sequential Dependencies:** [What previous knowledge is applied here]
+
+### Example 2: [Advanced Pattern]
+```javascript
+// More complex implementation building on previous examples
+```
+
+**Production Considerations:** [How this scales and handles real-world scenarios]
+```
+
+## Success Criteria
+
+A successful gRPC learning set should:
+1. ✅ Demonstrate professional-level gRPC JavaScript development skills using @grpc/grpc-js and @grpc/proto-loader
+2. ✅ Include working code examples for every major concept
+3. ✅ Show clear sequential learning progression
+4. ✅ Cover comprehensive topics with appropriate depth
+5. ✅ Provide visual aids for complex communication patterns
+6. ✅ Balance theoretical understanding with practical implementation
+7. ✅ Include real-world production considerations
+8. ✅ Reference specific book sections and JavaScript best practices
+9. ✅ Support both foundational learning and advanced skill development
+10. ✅ Enable hands-on practice with complete code examples
+
+This rule ensures comprehensive gRPC JavaScript professional development by combining rigorous concept + code Q&A testing with architectural pattern understanding and practical implementation skills using the @grpc/grpc-js and @grpc/proto-loader libraries.
