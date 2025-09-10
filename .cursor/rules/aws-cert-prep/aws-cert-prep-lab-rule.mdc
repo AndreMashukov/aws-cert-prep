@@ -1,0 +1,451 @@
+---
+description: AWS Certification Lab Creation Rule for hands-on AWS experience with Terraform and CLI integration
+globs:
+alwaysApply: true
+---
+
+# AWS Certification Lab Creation Rule
+
+## Purpose
+
+This rule transforms AWS certification topics into comprehensive hands-on laboratory experiences. Unlike theoretical Q&A generation, this rule creates practical scenarios where learners deploy, configure, and interact with AWS services to gain deep understanding through direct experience.
+
+## Input Requirements
+
+The rule expects a **subject description** as input (e.g., "Trust Policies and AssumeRole", "VPC Networking and Security Groups", "S3 Cross-Region Replication").
+
+## Core Workflow
+
+### Phase 1: AWS Knowledge Gathering
+1. **Use AWS Knowledge MCP Server** to fetch:
+   - Official AWS documentation for the subject
+   - Current best practices and architectural patterns
+   - Service-specific limitations and requirements
+   - Cost considerations and optimization strategies
+   - Security best practices and compliance requirements
+
+2. **Subject Analysis**:
+   - Identify core AWS services involved
+   - Determine learning objectives and outcomes
+   - Assess complexity level for target certification
+   - Plan resource requirements and cost implications
+
+### Phase 2: Scenario Design
+
+#### Learning Objectives
+Define clear, measurable learning objectives such as:
+- Understanding service configurations and integrations
+- Implementing security best practices
+- Demonstrating cost optimization techniques
+- Troubleshooting common issues
+- Applying architectural patterns
+
+#### Real-World Context
+Create realistic scenarios that mirror actual enterprise use cases:
+- Cross-account access patterns
+- Multi-environment deployments
+- Compliance and security requirements
+- Disaster recovery scenarios
+- Cost optimization challenges
+
+### Phase 3: Lab File Generation
+
+#### File Structure
+Generate a complete lab environment with:
+```
+labs/{subject-slug}/
+├── README.md                    # Quick start and overview
+├── lab-description.md           # Detailed description with diagrams
+├── lab-steps.md                # Step-by-step execution guide
+├── terraform/
+│   ├── main.tf                 # Primary infrastructure
+│   ├── variables.tf            # Configurable parameters
+│   ├── outputs.tf              # Important resource information
+│   ├── terraform.tfvars.example # Example configuration values
+│   └── provider.tf             # AWS provider configuration
+└── scripts/
+    ├── setup.sh                # Environment preparation
+    ├── verify.sh               # Validation and testing
+    └── cleanup.sh              # Complete resource cleanup
+```
+
+## File Content Specifications
+
+### 1. README.md Format
+```markdown
+# Lab: [Subject Name]
+
+## Quick Start
+Brief overview of what this lab teaches and estimated time/cost.
+
+## Prerequisites
+- AWS CLI configured with appropriate permissions
+- Terraform installed (version X.X+)
+- Basic understanding of [relevant services]
+
+## Learning Objectives
+- [Objective 1]
+- [Objective 2]
+- [Objective 3]
+
+## Estimated Cost
+$X.XX per hour (cleanup recommended within [timeframe])
+
+## Quick Commands
+```bash
+# Deploy infrastructure
+cd terraform && terraform apply
+
+# Follow lab steps
+# See lab-steps.md for detailed instructions
+
+# Cleanup
+terraform destroy
+```
+```
+
+### 2. lab-description.md Format
+```markdown
+# Lab Description: [Subject Name]
+
+## Overview
+[Comprehensive description of the lab scenario and its real-world relevance]
+
+## Architecture Overview
+[2-3 ASCII diagrams showing the lab architecture]
+
+### Diagram 1: Infrastructure Architecture
+```
+[ASCII diagram showing AWS resources and their relationships]
+```
+
+### Diagram 2: Process Flow
+```
+[ASCII diagram showing step-by-step process flow]
+```
+
+### Diagram 3: Security/Permission Model (if applicable)
+```
+[ASCII diagram showing security boundaries and access patterns]
+```
+
+## Services Used
+- **[Service 1]**: [Purpose and configuration details]
+- **[Service 2]**: [Purpose and configuration details]
+- **[Service 3]**: [Purpose and configuration details]
+
+## Learning Outcomes
+After completing this lab, you will understand:
+- [Specific technical skill 1]
+- [Specific technical skill 2]
+- [Specific architectural pattern]
+- [Security/cost consideration]
+
+## Real-World Applications
+This lab demonstrates patterns commonly used for:
+- [Enterprise use case 1]
+- [Enterprise use case 2]
+- [Compliance scenario]
+```
+
+### 3. Terraform Code Requirements
+
+#### main.tf Structure
+```hcl
+# AWS Provider configuration
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+# Resource definitions with proper naming and tagging
+resource "aws_[service]" "[name]" {
+  # Configuration with security best practices
+  # Cost-conscious sizing
+  # Proper tags for identification and cost tracking
+  
+  tags = {
+    Lab         = var.lab_name
+    Environment = "learning"
+    CreatedBy   = "aws-cert-prep-lab"
+    Purpose     = "[specific purpose]"
+  }
+}
+
+# Additional resources as needed for the scenario
+```
+
+#### variables.tf Requirements
+```hcl
+variable "lab_name" {
+  description = "Name identifier for this lab"
+  type        = string
+  default     = "[subject-slug]"
+}
+
+variable "aws_region" {
+  description = "AWS region for lab deployment"
+  type        = string
+  default     = "us-east-1"  # Cost-effective default
+}
+
+# Subject-specific variables
+variable "[relevant_var]" {
+  description = "[Purpose and usage]"
+  type        = string
+  default     = "[secure default]"
+}
+```
+
+#### outputs.tf Format
+```hcl
+output "[important_value]" {
+  description = "[What this output represents and how to use it]"
+  value       = aws_[resource].[name].[attribute]
+}
+
+output "lab_summary" {
+  description = "Summary of deployed resources for lab steps"
+  value = {
+    lab_name    = var.lab_name
+    region      = var.aws_region
+    # Additional relevant information
+  }
+}
+```
+
+### 4. lab-steps.md Format
+```markdown
+# Lab Steps: [Subject Name]
+
+## Prerequisites Verification
+Before starting, ensure you have:
+- [ ] AWS CLI configured with sufficient permissions
+- [ ] Terraform installed and working
+- [ ] [Any subject-specific requirements]
+
+## Step 1: Infrastructure Deployment
+### Deploy AWS Resources
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+
+**Expected Output:**
+[Description of what terraform apply should display]
+
+**Verification:**
+```bash
+# Commands to verify infrastructure was created correctly
+aws [service] [command] --[parameters]
+```
+
+## Step 2: [Subject-Specific Configuration]
+### [Specific task description]
+```bash
+# AWS CLI commands with full parameters and explanations
+aws [service] [action] \
+  --[parameter1] [value1] \
+  --[parameter2] [value2] \
+  --region $(terraform output -raw aws_region)
+```
+
+**What this does:**
+[Explanation of the command's purpose and expected behavior]
+
+**Expected Output:**
+[What success looks like]
+
+**Troubleshooting:**
+- If you see error X: [Solution]
+- If command fails with Y: [Solution]
+
+## Step 3: [Next configuration step]
+[Continue with additional steps...]
+
+## Verification and Testing
+### Confirm Lab Objectives
+Run these commands to verify your lab is working correctly:
+```bash
+# Verification commands with expected outputs
+```
+
+### Test Scenarios
+Try these scenarios to deepen understanding:
+1. **[Scenario 1]**: [Instructions and expected behavior]
+2. **[Scenario 2]**: [Instructions and expected behavior]
+
+## Learning Questions
+Consider these questions as you work through the lab:
+- Why did we configure [service] this way instead of [alternative]?
+- What would happen if we changed [parameter] to [value]?
+- How does this pattern apply to [real-world scenario]?
+
+## Cleanup
+**IMPORTANT:** Always clean up resources to avoid charges:
+```bash
+cd terraform
+terraform destroy
+```
+
+Verify cleanup completed:
+```bash
+# Commands to confirm all resources were deleted
+```
+
+## Extensions
+To extend this lab, try:
+- [Extension idea 1 with brief instructions]
+- [Extension idea 2 with brief instructions]
+- [Extension idea 3 with brief instructions]
+```
+
+## ASCII Diagram Requirements
+
+### 1. Infrastructure Architecture Diagram
+Show AWS resources and their relationships:
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   AWS Region    │    │   Availability  │    │   Availability  │
+│   us-east-1     │    │   Zone 1a       │    │   Zone 1b       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         v                       v                       v
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│      VPC        │    │    Public       │    │    Private      │
+│  10.0.0.0/16    │    │   Subnet        │    │    Subnet       │
+│                 │    │ 10.0.1.0/24     │    │  10.0.2.0/24    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
+
+### 2. Process Flow Diagram
+Show step-by-step interactions:
+```
+Developer          AWS CLI           AWS Service         AWS Resource
+    │                 │                   │                   │
+    │ 1. Execute      │                   │                   │
+    │   Command       │                   │                   │
+    │────────────────▶│ 2. API Call      │                   │
+    │                 │─────────────────▶│ 3. Process        │
+    │                 │                   │   Request         │
+    │                 │                   │──────────────────▶│
+    │                 │ 4. Response       │ 5. Resource       │
+    │                 │◄─────────────────│   Created         │
+    │ 6. Confirmation │                   │◄──────────────────│
+    │◄────────────────│                   │                   │
+```
+
+### 3. Security/Permission Model
+Show trust relationships and access patterns:
+```
+┌─────────────────┐    AssumeRole    ┌─────────────────┐
+│   Account A     │ ────────────────▶│   Account B     │
+│                 │   Trust Policy   │                 │
+│ ┌─────────────┐ │                  │ ┌─────────────┐ │
+│ │ IAM User    │ │                  │ │ IAM Role    │ │
+│ │ (Developer) │ │                  │ │ (S3Access)  │ │
+│ └─────────────┘ │                  │ └─────────────┘ │
+└─────────────────┘                  └─────────────────┘
+         │                                     │
+         │ Temporary                           │ Access
+         │ Credentials                         │ Granted
+         v                                     v
+┌─────────────────┐                  ┌─────────────────┐
+│   AWS CLI       │                  │   S3 Bucket     │
+│   Commands      │─────────────────▶│   Operations    │
+└─────────────────┘      API Calls   └─────────────────┘
+```
+
+## Safety and Cost Controls
+
+### Resource Limitations
+- Use t2.micro/t3.micro instances (free tier eligible)
+- Limit storage to minimal required sizes
+- Implement auto-termination where possible
+- Use cost-effective regions (us-east-1, us-west-2)
+
+### Cost Monitoring
+```hcl
+# Example cost control in Terraform
+resource "aws_budgets_budget" "lab_budget" {
+  name         = "${var.lab_name}-budget"
+  budget_type  = "COST"
+  limit_amount = "10"
+  limit_unit   = "USD"
+  time_unit    = "MONTHLY"
+  
+  cost_filters = {
+    Tag = ["Lab:${var.lab_name}"]
+  }
+}
+```
+
+### Cleanup Verification
+Always include cleanup verification scripts:
+```bash
+#!/bin/bash
+# verify-cleanup.sh
+echo "Checking for remaining lab resources..."
+
+# Check for tagged resources
+aws resourcegroupstaggingapi get-resources \
+  --tag-filters Key=Lab,Values=[lab-name] \
+  --region [region]
+
+if [ $? -eq 0 ]; then
+  echo "✅ No remaining resources found"
+else
+  echo "❌ Resources still exist - manual cleanup required"
+fi
+```
+
+## Integration Guidelines
+
+### AWS Knowledge MCP Server Usage
+1. **Documentation Lookup**: Always verify current service documentation
+2. **Best Practices**: Ensure lab follows current AWS recommendations
+3. **Cost Information**: Include current pricing estimates
+4. **Security Guidelines**: Implement latest security best practices
+5. **Service Availability**: Verify services work in target regions
+
+### Certification Level Adaptation
+- **Cloud Practitioner**: Basic service introduction, simple configurations
+- **Solutions Architect Associate**: Multi-service integration, common patterns
+- **Solutions Architect Professional**: Complex architectures, enterprise scenarios
+- **Specialty Certifications**: Deep service focus, advanced configurations
+
+### Quality Checklist
+Before generating lab content, verify:
+- [ ] **AWS MCP Server consulted** for current information
+- [ ] **Clear learning objectives** defined and achievable
+- [ ] **Complete file structure** with all required components
+- [ ] **Cost-conscious resource selection** throughout
+- [ ] **Security best practices** implemented by default
+- [ ] **Cleanup procedures** clearly documented and verified
+- [ ] **Real-world relevance** established and explained
+- [ ] **Multiple difficulty levels** supported through extensions
+- [ ] **Error handling and troubleshooting** guidance included
+- [ ] **ASCII diagrams** clearly show architecture and flows
+
+## Example Lab Subjects
+
+The rule should handle subjects like:
+- "Trust Policies and AssumeRole"
+- "VPC Networking and Security Groups"
+- "S3 Cross-Region Replication and Lifecycle"
+- "EC2 Auto Scaling with ALB"
+- "RDS Multi-AZ and Backup Strategies"
+- "Lambda Function Integration with API Gateway"
+- "CloudFormation Stack Dependencies"
+- "IAM Policy Evaluation and Debugging"
+- "CloudWatch Monitoring and Alerting"
+- "Cost Optimization with Reserved Instances"
+
+Each subject should result in a complete, deployable lab environment that provides hands-on experience with the specified AWS concepts and services.

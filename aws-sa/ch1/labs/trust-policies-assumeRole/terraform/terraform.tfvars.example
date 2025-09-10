@@ -1,0 +1,20 @@
+# Example Terraform variables file
+# Copy this file to terraform.tfvars and customize the values
+
+# Lab identification
+lab_name = "trust-policies-assumeRole"
+
+# AWS configuration
+aws_region = "us-east-1"
+
+# Security settings
+external_id = "your-unique-external-id-here"
+
+# Session configuration
+session_duration = 3600  # 1 hour in seconds
+
+# Cross-account settings (optional)
+# source_account_id = "111111111111"  # Uncomment for real cross-account scenario
+
+# Developer configuration
+developer_username = "lab-developer"

@@ -216,7 +216,7 @@ Account A (123456789)          Account B (987654321)
 │   User/Role     │           │      Role       │
 └─────────┬───────┘           └─────────┬───────┘
           │                             │
-          │ 1. AssumeRole              │
+          │ 1. AssumeRole               │
           └─────────────────────────────▶
           │                             │
           │ 2. Temporary Credentials    │
