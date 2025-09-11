@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__aws-knowledge-mcp-server__aws___search_documentation",
+      "mcp__aws-knowledge-mcp-server__aws___read_documentation"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
