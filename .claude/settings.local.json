@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__aws-knowledge-mcp-server__aws___search_documentation",
-      "mcp__aws-knowledge-mcp-server__aws___read_documentation"
+      "mcp__aws-knowledge-mcp-server__aws___read_documentation",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
