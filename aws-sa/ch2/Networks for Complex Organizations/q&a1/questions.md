@@ -15,8 +15,8 @@
 4. Site-to-Site VPN connections with Transit Gateway attachments
 
 **Q3: A company has deployed a software VPN appliance on an EC2 instance to connect their on-premises network to AWS. What are the primary operational concerns they must address that would not be present with AWS Managed VPN?**
-1. BGP routing configuration and tunnel redundancy
-2. Single point of failure, OS patching, and software updates management
+1. Single point of failure, OS patching, and software updates management
+2. BGP routing configuration and tunnel redundancy
 3. Internet connectivity reliability and bandwidth limitations
 4. Customer Gateway device compatibility and IPsec configuration
 
@@ -34,8 +34,8 @@
 
 **Q6: A company is evaluating AWS Direct Connect vs Site-to-Site VPN for their hybrid connectivity requirements. In which scenario would AWS Direct Connect be the preferred choice over VPN?**
 1. When the organization needs to quickly establish connectivity with minimal configuration changes
-2. When consistent bandwidth, low latency, and reduced data transfer costs are critical business requirements
-3. When the organization requires encrypted connectivity over the internet
+2. When the organization requires encrypted connectivity over the internet
+3. When consistent bandwidth, low latency, and reduced data transfer costs are critical business requirements
 4. When connecting a single on-premises location to one VPC in AWS
 
 **Q7: An enterprise has implemented Transit Gateway to connect 50 VPCs across development, staging, and production environments. They need to ensure that development VPCs cannot communicate with production VPCs. What is the most effective approach?**
@@ -58,6 +58,6 @@
 
 **Q10: An organization has a Transit Gateway with multiple VPC attachments and wants to prevent VPC-to-VPC communication while still allowing all VPCs to communicate with on-premises networks through Direct Connect. What is the most effective configuration approach?**
 1. Disable route propagation between VPC attachments
-2. Associate VPC attachments with route tables that have blackhole routes for other VPC CIDRs
-3. Use separate Transit Gateways for each VPC
+2. Use separate Transit Gateways for each VPC
+3. Associate VPC attachments with route tables that have blackhole routes for other VPC CIDRs
 4. Implement Security Groups at the VPC level to block inter-VPC traffic

@@ -9,7 +9,7 @@
 **Explanation:** Direct Connect Gateway with Transit Gateways in each region provides the most scalable solution. A single Direct Connect Gateway can connect to multiple regions, and Transit Gateway can efficiently handle multiple VPC attachments within each region (up to 5,000 VPC attachments per TGW). This approach minimizes the number of Direct Connect Gateway associations needed and provides better routing control. Individual Direct Connect connections (option 3) would be expensive, and VPN connections (option 4) don't provide the consistent performance and bandwidth that Direct Connect offers.
 
 **Q3: A company has deployed a software VPN appliance on an EC2 instance to connect their on-premises network to AWS. What are the primary operational concerns they must address that would not be present with AWS Managed VPN?**
-**Answer: 2**
+**Answer: 1**
 **Explanation:** Software VPN appliances create a single point of failure since they run on individual EC2 instances, and the customer is responsible for all operating system and software updates, patching, and maintenance. AWS Managed VPN handles the AWS-side infrastructure automatically. While BGP routing and tunnel redundancy (option 1) are concerns for both solutions, the operational overhead of managing the software appliance itself is the key differentiator.
 
 **Q4: An organization needs to provide private connectivity from their VPC to AWS services without routing traffic over the internet. They want to access both S3 and DynamoDB from their private subnets. What is the most appropriate solution?**
@@ -21,7 +21,7 @@
 **Explanation:** Cross-account Direct Connect Gateway sharing works through association proposals. Accounts B and C must send association proposals to Account A (the gateway owner), who can then accept these proposals and optionally configure allowed prefixes. Account A maintains control over routing decisions since they own the gateway. Direct Connect Gateways cannot be shared through AWS RAM (option 2), and Account A cannot create attachments on behalf of other accounts (option 1).
 
 **Q6: A company is evaluating AWS Direct Connect vs Site-to-Site VPN for their hybrid connectivity requirements. In which scenario would AWS Direct Connect be the preferred choice over VPN?**
-**Answer: 2**
+**Answer: 3**
 **Explanation:** AWS Direct Connect provides consistent bandwidth, predictable low latency, and can reduce data transfer costs for high-volume applications, making it ideal when these factors are critical business requirements. VPN is better for quick setup (option 1), provides encryption by default (option 3), and is often sufficient for single-location, single-VPC scenarios (option 4). Direct Connect's main advantages are performance consistency and cost savings for large data transfers.
 
 **Q7: An enterprise has implemented Transit Gateway to connect 50 VPCs across development, staging, and production environments. They need to ensure that development VPCs cannot communicate with production VPCs. What is the most effective approach?**
@@ -37,5 +37,5 @@
 **Explanation:** A public Virtual Interface (VIF) is required to access AWS public services over Direct Connect. Private VIFs only provide access to resources within VPCs, while public VIFs provide access to AWS public service endpoints. Internet Gateway (option 1) is for VPC internet access, NAT Gateway (option 2) is for outbound internet from private subnets, and VPC Endpoints (option 3) provide private access from within VPCs, not from on-premises.
 
 **Q10: An organization has a Transit Gateway with multiple VPC attachments and wants to prevent VPC-to-VPC communication while still allowing all VPCs to communicate with on-premises networks through Direct Connect. What is the most effective configuration approach?**
-**Answer: 2**
+**Answer: 3**
 **Explanation:** Using route tables with blackhole routes for other VPC CIDRs is the most precise method to prevent VPC-to-VPC communication while maintaining on-premises connectivity. By associating VPC attachments with route tables that include routes to on-premises networks but blackhole routes for other VPC CIDR blocks, you achieve the desired traffic isolation. Disabling route propagation (option 1) affects all routes, and separate Transit Gateways (option 3) would be unnecessarily complex and expensive.
